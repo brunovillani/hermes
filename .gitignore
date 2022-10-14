@@ -1,0 +1,9 @@
+# docker volumes
+/volumes/verdaccio/storage
+/volumes/nodereddata/.npm
+/volumes/nodereddata/lib
+/volumes/nodereddata/node_modules
+
+#hermes-cli
+/hermes-cli/dist
+/hermes-cli/node_modules

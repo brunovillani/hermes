@@ -1,0 +1,23 @@
+version: '3.1'
+
+services:
+  nodered:
+    image: nodered/node-red
+    restart: always
+    ports:
+      - 1880:1880
+    volumes:
+      - "./volumes/nodereddata:/data"
+  
+  verdaccio:
+    image: verdaccio/verdaccio
+    container_name: verdaccio-docker-local-storage-vol
+    ports:
+      - 4873:4873
+    volumes:
+      - "./volumes/verdaccio/storage:/verdaccio/storage"
+      - "./volumes/verdaccio/conf:/verdaccio/conf"
+
+volumes:
+  verdaccio:
+    driver: local
