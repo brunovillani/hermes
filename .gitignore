@@ -1,3 +1,5 @@
+.DS_Store
+
 # docker volumes
 /volumes/verdaccio/storage
 /volumes/nodereddata/.npm
@@ -7,3 +9,7 @@
 #hermes-cli
 /hermes-cli/dist
 /hermes-cli/node_modules
+
+#hermes-hub
+/hermes-hub/node_modules
+/hermes-hub/dist
