@@ -1,4 +1,5 @@
 import { Arguments, CommandBuilder } from 'yargs';
+import { consoleWrite } from '../helpers/utils';
 
 type Options = {
   pin: string;
@@ -19,6 +20,6 @@ export const builder: CommandBuilder<Options, Options> = (yargs) =>
 export const handler = (argv: Arguments<Options>): void => {
   const { name, upper } = argv;
   const greeting = `Hello, ${name} from narnia!`;
-  process.stdout.write(upper ? greeting.toUpperCase() : greeting);
+  consoleWrite(upper ? greeting.toUpperCase() : greeting);
   process.exit(0);
 };
