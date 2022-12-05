@@ -8,5 +8,5 @@ yargs(hideBin(process.argv))
   .commandDir('commands')
   // Enable strict mode.
   .strict()
-  // Usefil aliases.
+  // Useful aliases.
   .alias({ h: 'help' }).argv;
