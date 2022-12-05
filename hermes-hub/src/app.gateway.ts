@@ -3,9 +3,8 @@ import {
   WebSocketGateway,
   WebSocketServer,
 } from '@nestjs/websockets';
-import * as Schedule from 'node-schedule';
 import { GpioService } from './services/gpio.service';
-import { SchedulerService } from './services/scheduler.service';
+import { Rule, SchedulerService } from './services/scheduler.service';
 
 @WebSocketGateway()
 export class AppGateway {
@@ -21,24 +20,25 @@ export class AppGateway {
   async handleConnection() {
     this.users++;
     console.log(`connections: ${this.users}`);
+    return 'connected';
   }
   async handleDisconnect() {
     this.users--;
     console.log(`connections: ${this.users}`);
+    return 'disconnected';
   }
   //#endregion
 
   @SubscribeMessage('ping')
-  handlePing(): string {
+  handlePing(_: any, msg: string): string {
+    console.log(msg);
     return 'pong';
   }
 
   //#region Scheduler
   @SubscribeMessage('set-scheduler')
-  setScheduler(_: any, payload: { hour: number; minute: number }): string {
-    return this.schedulerSrv.setSchedule(payload.hour, payload.minute, (name) =>
-      this.emitSchedule(name),
-    );
+  setScheduler(_: any, payload: Rule): string {
+    return this.schedulerSrv.setSchedule(payload, this.emitSchedule);
   }
 
   @SubscribeMessage('get-scheduler')
@@ -46,7 +46,15 @@ export class AppGateway {
     return this.schedulerSrv.getSchedules();
   }
 
-  private emitSchedule = (name: string): void => this.server.emit(name, true);
+  @SubscribeMessage('clear-scheduler')
+  clearSchedulers(_: any, name: string): boolean {
+    return this.schedulerSrv.clearSchedule(name);
+  }
+
+  private emitSchedule = (name: string): void => {
+    console.log(`emitting ${name}`);
+    this.server.emit(name, true);
+  };
   //#endregion
 
   //#region GPIO
