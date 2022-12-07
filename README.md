@@ -1,3 +1,20 @@
+# Transfer hermes_hub prod version to rpi
+
+`rsync -r -f '- file-to-exclude' ./localdir user@ip_address:/path/to/destination`
+must do npm build && npm prune --production
+must transfer package.json, package-lock.json dist/ node_modules/
+run as npm run start:prod
+
+`source:` [correctly build nodejs apps](https://splunktool.com/how-to-correctly-build-nestjs-app-for-production-with-nodemodules-dependencies-in-bundle)
+
+# Rpi ssh-key
+
+`source`: [configure ssh-key on rpi](https://www.geekyhacker.com/2021/02/15/configure-ssh-key-based-authentication-on-raspberry-pi/)
+
+1. create ssh key to connect to rpi (`ssh-keygen` and tap yes to all)
+2. register key on rpi (`ssh-copy-id <user>@<ip-address>`)
+3. connect directly to rpi or send files (`ssh <user>@<ip-address>` or `rsync -r <origin> <user>@<ip-address>:<destination>`)
+
 # Verdaccio and simple local storage
 
 This example shows a simple configuration for `verdaccio` plus the default local storage with the minimum configuration required using `docker-compose`.

@@ -1,4 +1,6 @@
 .DS_Store
+*.pem
+node_modules
 
 # docker volumes
 /volumes/verdaccio/storage
@@ -13,3 +15,6 @@
 #hermes-hub
 /hermes-hub/node_modules
 /hermes-hub/dist
+
+# turbo
+.turbo
